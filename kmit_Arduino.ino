@@ -17,18 +17,16 @@ void setup() {
   while (!Serial) ;
   mySerial.begin(9600);
   dht.begin();
-  pinMode(ledPin, OUTPUT);  // sets the MQ2pin as output
   
 }
 
 void loop() {
-
-  DUSTSENSOR();
+  Dustsensor();
   MQ2();
-  DHT22();
+  temperature();
 }
 
-void DUSTSENSOR();{
+void Dustsensor(){
   int index = 0;
   char value;
   char previousValue;
@@ -63,7 +61,8 @@ void DUSTSENSOR();{
     Serial.print("\"pm10\": ");
     Serial.print(pm10);
     Serial.print(" ug/m3");
-  } else if (index > 15) {
+  } 
+  else if (index > 15) {
     break;
   }
   index++;
@@ -79,7 +78,7 @@ void MQ2() {
   Serial.println(val); // พิมพ์ค่าของตัวแปร val
 }
 
-void DHT22() {
+void temperature() {
   delay(2000); // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
    
   float h = dht.readHumidity();  // Read temperature as Celsius (the default)
